@@ -2,7 +2,8 @@
 
 In this course we hope to become comfortable with the bulk of the javascript
 language from the black box perspective. As in, here are all the things
-javascript understands (functions, strings, numbers, looping, etc.)
+javascript understands (functions, strings, numbers, looping, etc.), without
+getting into how it understands.
 
 Once there we will look into the box a little bit in order to understand how
 programs are executed.
@@ -41,6 +42,6 @@ follows:
 
 
 ## resources
-[thorough javascript overview](https://github.com/getify/You-Dont-Know-JS)
-[eloquent js](https://eloquentjavascript.net/)
-[js cheat sheet](https://htmlcheatsheet.com/js/)
+* [thorough javascript overview](https://github.com/getify/You-Dont-Know-JS)
+* [eloquent js](https://eloquentjavascript.net/)
+* [js cheat sheet](https://htmlcheatsheet.com/js/)
