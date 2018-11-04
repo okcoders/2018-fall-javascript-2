@@ -10,6 +10,7 @@
     function addNewPriority(event){
       priorities.push({name: currentPriority, level: currentPriorityLevel})
       console.log(priorities)
+      drawPriorities()
       return false;
     }
 
@@ -24,8 +25,12 @@
     }
 
     function drawPriorities() {
-     var list = document.getElementById("priority-list")
-     priorities.map(x => ``)
+      try {
+      var list = document.getElementById("priority-list")
+      var currentPriorities = priorities.map(x => `<li class="list-group-item">${x.name}</li>`)
+      var temp = currentPriorities.join("")
+      list.innerHTML = temp
+      } catch(e) { console.error(e) }
     }
 
 
@@ -63,8 +68,7 @@
     </form>
   </div>
   <ul id="priority-list" class="list-group">
-      <li class="list-group-item">Cras justo odio</li>
-    </ul>
+  </ul>
 
 
 
