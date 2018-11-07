@@ -13,4 +13,8 @@ http://www.pythontutor.com/javascript.html#mode=display
 ## higher order functions again
 * the most important, callback functions
 
-## the bug
+## the bugs
+
+* priorities can become negative
+* you can have priorities with the same value (to fix this we may want to change
+  the ui a little bit)
