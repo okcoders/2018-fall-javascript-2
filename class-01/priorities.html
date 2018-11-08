@@ -1,0 +1,102 @@
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <title>make-time</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="./priorities.css">
+
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Make Time</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-item nav-link" href="/#">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-item nav-link active" href="priorities.html">Priorities</a>
+        <a class="nav-item nav-link" href="todo">To Do Today</a>
+        <a class="nav-item nav-link" href="past">Past Days</a>
+      </div>
+    </div>
+  </nav>
+  <div class="container">
+    <h1>
+      priorities
+    </h1>
+    <form onsubmit="return addNewPriority(event)">
+      <div class="form-group">
+        <label for="exampleInputEmail1">Priority</label>
+        <input type="text" class="form-control" onchange="return priorityChange(event)" id="exampleInputPriority1" placeholder="Enter a priority.... like Family">
+      </div>
+      <div class="form-group">
+        <label for="exampleInputLevel1">Priority Level</label>
+        <input type="number" class="form-control" onchange="return priorityLevelChange(event)" id="exampleInputPriorityLevel1" placeholder="Enter priority level.... like 1 or 2">
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    <ul id="priority-list" class="list-group"> </ul>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  <script>
+    var currentPriority = ""
+    var currentPriorityLevel = 1
+    var priorities = []
+    function addNewPriority(event){
+      priorities.push({name: currentPriority, level: currentPriorityLevel})
+      drawPriorities()
+      return false;
+    }
+
+    function priorityChange(event){
+      console.log(event.target.value)
+      currentPriority = event.target.value
+    }
+
+    function priorityLevelChange(event){
+      console.log(event.target.value)
+      currentPriorityLevel = event.target.value
+    }
+
+    function makeHigherPriority(name) {
+      var priority = priorities.find(p => p.name === name)
+      priority.level = priority.level - 1
+
+      drawPriorities()
+    }
+
+    function makeLowerPriority(name) {
+      var priority = priorities.find(p => p.name === name)
+      priority.level = priority.level + 1
+
+      drawPriorities()
+    }
+
+    function drawPriorities() {
+      var list = document.getElementById("priority-list")
+      var currentPriorities = priorities
+        .sort((x,y) => x.level - y.level)
+        .map(x => {
+          return `<li class="list-group-item">
+          <span class="badge badge-primary badge-pill"> ${x.level} </span>
+          <span>${x.name}</span>
+          <span class="float-buttons">
+            <button onclick="return makeHigherPriority('${x.name}')" type="button" class="btn btn-sm btn-outline-primary">Make Higher Priority</button>
+            <button onclick="return makeLowerPriority('${x.name}')" type="button" class="btn btn-sm btn-outline-secondary">Make Lower Priority</button>
+          </span>
+          </li>`
+        })
+        .join("")
+      list.innerHTML = currentPriorities
+    }
+
+    drawPriorities()
+
+
+  </script>
+</body>
+</html>

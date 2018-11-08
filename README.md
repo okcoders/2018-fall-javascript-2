@@ -29,7 +29,6 @@ The requirements for this program include:
 * reflection notes for particular days (meant to be filled in at the end of a
   day)
 
-
 I will provide a prototype of this application. And the classes will be as
 follows:
 
@@ -39,7 +38,6 @@ follows:
   should really refactor our existing code to better facilitate it
 * day 4 I show how to tie a pretty bow around our application, and you modify it
   to look how you think it should look
-
 
 ## resources
 * [thorough javascript overview](https://github.com/getify/You-Dont-Know-JS)
