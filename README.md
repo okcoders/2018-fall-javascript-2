@@ -3,10 +3,10 @@
 In this course we hope to become comfortable with the bulk of the javascript
 language from the black box perspective. As in, here are all the things
 javascript understands (functions, strings, numbers, looping, etc.), without
-getting into how it understands.
+getting into how it understands them.
 
 Once there we will look into the box a little bit in order to understand how
-programs are executed.
+programs are executed both in the web browser, and in node.
 
 Finally, we will simulate building a more complicated application, and go
 through four important things programmers do often
@@ -34,8 +34,7 @@ follows:
 
 * day 1 I show that there is a bug in the prototype, you must find and fix the bug
 * day 2 I request a new feature be added to the application
-* day 3 I show that there is another new feature we need, but to add it we
-  should really refactor our existing code to better facilitate it
+* day 3 I request another new feature be added to the application
 * day 4 I show how to tie a pretty bow around our application, and you modify it
   to look how you think it should look
 
