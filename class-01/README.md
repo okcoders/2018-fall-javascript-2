@@ -52,6 +52,9 @@ homogenous
   for function calls
 * functions create new scopes, if you are not in a function you are in the Global scope
 * outer scopes can't touch inner ones, but inner ones can touch outer ones
+* lines are evaluated inside out
+* statements vs. expressions (lines either have a value or are a side effect,
+  and the value is undefined)
 * shadowing (when you reuse the same variable name inside a function that exists
   in the global scope)
 
@@ -132,3 +135,13 @@ no need to read
   [this](https://www.html5rocks.com/en/tutorials/internals/howbrowserswork/),
   but it gives a rather deep dive into how the browser reads and the makes a
   webpage from an html document
+
+## One high level concept
+
+Notice we have some functions that are sort of the core of our priority list.
+Meaning, the functions exist pretty much exactly the same in our node version,
+and our web version (add priority, make higher priority, make lower). This kind
+of logic is often referred to as business logic, i.e a lot of companies end up
+having very similar code (display data on a web page) that they will actually
+share with each other (react framework, for example), but what makes the
+money/what is unique is the business logic.
