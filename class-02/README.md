@@ -166,6 +166,7 @@ ancestor tree though - html has root ancestors, children, siblings, etc.
 
 For example:
 
+```
 <html>
   <body>
     <div>
@@ -177,8 +178,9 @@ For example:
     </div>
   </body>
 </html>
+```
 
-can be though of like so:
+can be thought of like so:
 
             html
              |
@@ -198,6 +200,8 @@ know that it does this loading all in one pass. It doesn't do more than one
 thing at a time. So if you put some javascript in your page at the top, and have
 that javascript do a bunch of stuff, or for fun, just stick a while loop in
 there, the rest of the page will not show up for a while or at all. 
+
+All this to say, people put javascript at the bottom of web pages.
 
 ## Homework
 
