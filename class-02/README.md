@@ -30,6 +30,10 @@ function makeHigherPriority(name) {
 
 Or better, UX Change:
 
+The trick I use to disable the button, is, as always, found in the docs. I had
+to look at the docs right before writing the below, I don't have things
+memorized: [bootstap button docs](https://getbootstrap.com/docs/4.1/components/buttons/#disabled-state)
+
 ```
 function drawPriorities() {
   var list = document.getElementById("priority-list")
