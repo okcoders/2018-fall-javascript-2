@@ -74,12 +74,12 @@ function addNewPriority(name, level) {
 }
 
 function makeHigherPriority(name) {
-  var priority = priorities.find(p => p.name === name)
+  var priority = priorities.find(function(p) { return p.name === name })
   priority.level = priority.level - 1
 }
 
 function makeLowerPriority(name) {
-  var priority = priorities.find(p => p.name === name)
+  var priority = priorities.find(function(p) { return p.name === name })
   priority.level = priority.level + 1
 }
 
@@ -87,10 +87,13 @@ function drawPriorities() {
   if (priorities.length === 0) {
     console.log("no priorities yet you lazy bum!")
   } else {
-    console.log(priorities.map(function (p) { return prettyPriority(p) }).join("\n"))
+   var prettyPriorities = priorities.map(prettyPriority).join("\n")
+   console.log(oneStringPriorities)
   }
 }
-
+var prettyPriority = function(priority) {
+  return `${priority.level}: ${priority.name}`
+} 
 function prettyPriority(priority) {
   return `${priority.level}: ${priority.name}`
 }
