@@ -209,6 +209,78 @@ All this to say, people put javascript at the bottom of web pages.
 
 ## Homework
 
+#### more practice with higher order functions
+
+Here is what we covered in class:
+
+```
+var mapPractice = [1, 2, 3]
+function callback(e) {
+ return e + 1
+}
+var newArray = mapPractice.map(callback)
+console.log(newArray)
+
+var mapPractice = ["zach", "bob", "susan", "carson", "stanley"]
+function callback(e) {
+ return "hello " + e
+}
+var newArray = mapPractice.map(callback)
+console.log(newArray)
+
+var mapPractice = [{name: "zach"} , {name: "bob"}, {name: "susan"}]
+function callback(e) {
+ return "hello " + e.name
+}
+var newArray = mapPractice.map(callback)
+console.log(newArray)
+
+var filterPractice = [{name: "zach"} , {name: "bob"}, {name: "susan"}]
+function callback(e) {
+  return !(e.name === "bob")
+}
+var newArray = filterPractice.filter(callback)
+console.log(newArray)
+```
+
+Below I have some callback functions I'd like you to fill in:
+
+[reduce docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce)
+
+```
+var reducePractice = [1, 2, 3, 4, 5]
+function reduceCallback(acc, e) {
+  // our goal is to get the sum of all the numbers
+  return ???
+}
+
+var answer = reducePractice.reduce(reduceCallback)
+console.log(answer)
+// should be 15
+
+
+// combinding them all together, below you need to implement three callback
+functions - our goal is to get the sum of the ages of all people over 21
+
+var allThreePractice = [{name: "zach", age: 28} , {name: "bob", age: 14}, {name: "carson", age: 25}]
+// don't worry about my switch to the [arrow](https://codeburst.io/javascript-arrow-functions-for-beginners-926947fc0cdc) function below
+var mapCallBack = (o) => return ???
+var filterCallback = (e) => return ???
+var reduceCallback = (acc, n) => return ???
+// the below is called chaining, and putting them on new lines is just more pretty
+var answer = allThreePractice
+  .map(mapCallback)
+  .filter(filterCallback)
+  .reduce(reduceCallback)
+
+// same as
+var answer = allThreePractice.map(mapCallback).filter(filterCallback).reduce(reduceCallback)
+
+console.log(answer)
+// answer should be 53
+
+```
+
 #### clear the priority form whenever you hit submit
 i.e the priority you just typed in is still in the form after you add it
 
