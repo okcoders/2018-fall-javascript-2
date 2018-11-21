@@ -213,6 +213,9 @@ All this to say, people put javascript at the bottom of web pages.
 
 Here is what we covered in class:
 
+* [map docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map)
+* [filter docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter)
+
 ```
 var mapPractice = [1, 2, 3]
 function callback(e) {
@@ -257,16 +260,18 @@ function reduceCallback(acc, e) {
 var answer = reducePractice.reduce(reduceCallback)
 console.log(answer)
 // should be 15
+```
 
-
-// combinding them all together, below you need to implement three callback
+combinding them all together, below you need to implement three callback
 functions - our goal is to get the sum of the ages of all people over 21
 
+don't worry about my switch to the [arrow](https://codeburst.io/javascript-arrow-functions-for-beginners-926947fc0cdc) function below
+
+```
 var allThreePractice = [{name: "zach", age: 28} , {name: "bob", age: 14}, {name: "carson", age: 25}]
-// don't worry about my switch to the [arrow](https://codeburst.io/javascript-arrow-functions-for-beginners-926947fc0cdc) function below
-var mapCallBack = (o) => return ???
-var filterCallback = (e) => return ???
-var reduceCallback = (acc, n) => return ???
+var mapCallBack = (o) => ???
+var filterCallback = (e) => ???
+var reduceCallback = (acc, n) => ???
 // the below is called chaining, and putting them on new lines is just more pretty
 var answer = allThreePractice
   .map(mapCallback)
