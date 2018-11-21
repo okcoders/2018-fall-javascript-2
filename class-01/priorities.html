@@ -22,17 +22,10 @@
     </div>
   </nav>
   <div class="container">
-    <h1>
-      priorities
-    </h1>
     <form onsubmit="return addNewPriority(event)">
       <div class="form-group">
         <label for="exampleInputEmail1">Priority</label>
         <input type="text" class="form-control" onchange="return priorityChange(event)" id="exampleInputPriority1" placeholder="Enter a priority.... like Family">
-      </div>
-      <div class="form-group">
-        <label for="exampleInputLevel1">Priority Level</label>
-        <input type="number" class="form-control" onchange="return priorityLevelChange(event)" id="exampleInputPriorityLevel1" placeholder="Enter priority level.... like 1 or 2">
       </div>
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
@@ -44,10 +37,10 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
   <script>
     var currentPriority = ""
-    var currentPriorityLevel = 1
     var priorities = []
     function addNewPriority(event){
-      priorities.push({name: currentPriority, level: currentPriorityLevel})
+      var nextPriorityLevel = priorities.length + 1
+      priorities.push({name: currentPriority, level: nextPriorityLevel})
       drawPriorities()
       return false;
     }
@@ -57,21 +50,22 @@
       currentPriority = event.target.value
     }
 
-    function priorityLevelChange(event){
-      console.log(event.target.value)
-      currentPriorityLevel = event.target.value
-    }
-
     function makeHigherPriority(name) {
-      var priority = priorities.find(p => p.name === name)
-      priority.level = priority.level - 1
+      var priorityClickedOn = priorities.find(p => p.name === name)
+      var levelToChange = priorityClickedOn.level - 1
+      var priorityToChange = priorities.find(p => p.level === levelToChange)
+      priorityClickedOn.level = priorityClickedOn.level - 1
+      priorityToChange.level = priorityToChange.level + 1
 
       drawPriorities()
     }
 
     function makeLowerPriority(name) {
-      var priority = priorities.find(p => p.name === name)
-      priority.level = priority.level + 1
+      var priorityClickedOn = priorities.find(p => p.name === name)
+      var levelToChange = priorityClickedOn.level + 1
+      var priorityToChange = priorities.find(p => p.level === levelToChange)
+      priorityClickedOn.level = priorityClickedOn.level + 1
+      priorityToChange.level = priorityToChange.level - 1
 
       drawPriorities()
     }
@@ -81,12 +75,14 @@
       var currentPriorities = priorities
         .sort((x,y) => x.level - y.level)
         .map(x => {
+          var makeHigherDisabled = x.level === 1 ? "disabled": ""
+          var makeLowerDisabled = x.level === priorities.length ? "disabled": ""
           return `<li class="list-group-item">
           <span class="badge badge-primary badge-pill"> ${x.level} </span>
           <span>${x.name}</span>
           <span class="float-buttons">
-            <button onclick="return makeHigherPriority('${x.name}')" type="button" class="btn btn-sm btn-outline-primary">Make Higher Priority</button>
-            <button onclick="return makeLowerPriority('${x.name}')" type="button" class="btn btn-sm btn-outline-secondary">Make Lower Priority</button>
+            <button ${makeHigherDisabled} onclick="return makeHigherPriority('${x.name}')" type="button" class="btn btn-sm btn-outline-primary">Make Higher Priority</button>
+            <button ${makeLowerDisabled} onclick="return makeLowerPriority('${x.name}')" type="button" class="btn btn-sm btn-outline-secondary">Make Lower Priority</button>
           </span>
           </li>`
         })
@@ -97,6 +93,36 @@
     drawPriorities()
 
 
+  </script>
+
+  <script>
+    // var mapPractice = [1, 2, 3]
+    // function callback(e) {
+    //   return e + 1
+    // }
+    // var newArray = mapPractice.map(callback)
+    // console.log(newArray)
+
+    // var mapPractice = ["zach", "bob", "susan", "carson", "stanley"]
+    // function callback(e) {
+    //   return "hello " + e
+    // }
+    // var newArray = mapPractice.map(callback)
+    // console.log(newArray)
+
+    // var mapPractice = [{name: "zach"} , {name: "bob"}, {name: "susan"}]
+    // function callback(e) {
+    //   return "hello " + e.name
+    // }
+    // var newArray = mapPractice.map(callback)
+    // console.log(newArray)
+
+    var filterPractice = [{name: "zach"} , {name: "bob"}, {name: "susan"}]
+    function callback(e) {
+      return !(e.name === "bob")
+    }
+    var newArray = filterPractice.filter(callback)
+    console.log(newArray)
   </script>
 </body>
 </html>

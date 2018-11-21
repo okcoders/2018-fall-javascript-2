@@ -212,9 +212,9 @@ All this to say, people put javascript at the bottom of web pages.
 #### clear the priority form whenever you hit submit
 i.e the priority you just typed in is still in the form after you add it
 
-#### make the todo page
-have a form that takes new todo names, and then render them on the page just
-like we do priorities
+#### make it so the user can mark a todo item as complete
+You can use a [checkbox](https://getbootstrap.com/docs/4.0/components/forms/#checkboxes-and-radios)
+Or have a button that will like make the text strikedthrough or something
 
 #### Make it so the user can choose their daily highlight
 
