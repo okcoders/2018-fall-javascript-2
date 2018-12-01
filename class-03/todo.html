@@ -30,6 +30,9 @@
       <div class="form-group">
         <input type="text" class="form-control" onchange="return toDoChange(event)" id="inputToDo" placeholder="Enter a to-do item.... like do OkCoders homework">
       </div>
+      <div id="duplicateToDo" class="alert alert-warning hide-alert" role="alert">
+        You already have a todo for that!
+      </div>
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
     <ul id="toDo-list" class="list-group"> </ul>
@@ -40,16 +43,35 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
   <script>
     var currentToDo = ""
-    var toDos = [{name: 'chicken', level: 1}]
+    var toDos = []
     function addNewToDo(event){
-      var nextToDoLevel = toDos.length + 1
-      toDos.push({name: currentToDo, level: nextToDoLevel})
-      drawToDos()
+      var alreadyHaveToDo = toDos.find(???)
+      if (alreadyHaveToDo) }
+        // find alert and remove class that hides it
+      } else {
+        var nextToDoLevel = toDos.length + 1
+        toDos.push({name: currentToDo, level: nextToDoLevel, completed: false, highlight: false})
+        drawToDos()
+      }
       return false;
     }
 
     function toDoChange(event){
       currentToDo = event.target.value
+    }
+
+    function checkboxChange(event) {
+      var clickedOnName = event.target.value
+      var toDoClickedOn = toDos.find(t => t.name === clickedOnName)
+      toDoClickedOn.completed = !toDoClickedOn.completed
+    }
+
+    function makeHighlight(name) {
+      toDos.map(t => t.highlight = false)
+      var toDo = toDos.find(p => p.name === name)
+      toDo.highlight = true
+
+      drawToDos()
     }
 
     function makeHigherToDo(name) {
@@ -79,12 +101,22 @@
       var currentToDos = toDos
         .sort((x,y) => x.level - y.level)
         .map(x => {
+          var disabledHighlight = x.highlight ? 'disabled': ''
           var disabledHigher = x.level === 1 ? 'disabled': ''
           var disabledLower = x.level === toDos.length ? 'disabled': ''
-          return `<li class="list-group-item">
+          var checked = x.completed ? 'checked': ''
+          var highlight = x.highlight ? 'highlight': ''
+          return `<li class="list-group-item ${highlight}">
           <span class="badge badge-primary badge-pill"> ${x.level} </span>
           <span>${x.name}</span>
+          <div class="form-check form-check-inline">
+            <input ${checked} onchange="return checkboxChange(event)" value="${x.name}" class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="option1" aria-label="...">
+          </div>
           <span class="float-buttons">
+            <button ${disabledHighlight} onclick="return makeHighlight('${x.name}')" 
+              type="button" class="btn btn-sm
+              btn-outline-success">Make Highlight
+            </button>
             <button ${disabledHigher} onclick="return makeHigherToDo('${x.name}')" 
               type="button" class="btn btn-sm
               btn-outline-primary">Make Higher To-Do Item

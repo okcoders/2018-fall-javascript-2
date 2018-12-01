@@ -1,0 +1,14 @@
+{
+  "name": "make-time",
+  "version": "1.0.0",
+  "description": "## setting up the project from scratch",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "browser-sync start -s -f . --no-notify --host localhost --port 9000"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+  }
+}
