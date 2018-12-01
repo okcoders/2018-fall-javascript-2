@@ -44,9 +44,6 @@
     function addNewPriority(event){
       var nextPriorityLevel = priorities.length + 1
       priorities.push({name: currentPriority, level: nextPriorityLevel})
-      var input = document.getElementById('exampleInputPriority1')
-      input.value = ""
-      currentPriority = ""
       drawPriorities()
       return false;
     }

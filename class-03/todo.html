@@ -40,21 +40,16 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
   <script>
     var currentToDo = ""
-    var toDos = [{name: 'chicken', level: 1, done: true}]
+    var toDos = [{name: 'chicken', level: 1}]
     function addNewToDo(event){
       var nextToDoLevel = toDos.length + 1
-      toDos.push({name: currentToDo, level: nextToDoLevel, done: false})
+      toDos.push({name: currentToDo, level: nextToDoLevel})
       drawToDos()
       return false;
     }
 
     function toDoChange(event){
       currentToDo = event.target.value
-    }
-
-    function checkboxChange(event) {
-      var toDo = toDos.find(t => t.name === event.target.value)
-      toDo.done = !toDo.done
     }
 
     function makeHigherToDo(name) {
@@ -86,19 +81,9 @@
         .map(x => {
           var disabledHigher = x.level === 1 ? 'disabled': ''
           var disabledLower = x.level === toDos.length ? 'disabled': ''
-          var checked = x.done ? 'checked': ''
           return `<li class="list-group-item">
           <span class="badge badge-primary badge-pill"> ${x.level} </span>
           <span>${x.name}</span>
-          <div class="form-check form-check-inline">
-          <input 
-            onchange="return checkboxChange(event)" 
-            value="${x.name}" 
-            type="checkbox" 
-            class="form-check-input position-static" 
-            id="exampleCheck1" 
-            ${checked}>
-          </div>
           <span class="float-buttons">
             <button ${disabledHigher} onclick="return makeHigherToDo('${x.name}')" 
               type="button" class="btn btn-sm
