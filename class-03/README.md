@@ -41,6 +41,60 @@ return `<li class="list-group-item">
 
 ### let user choose their daily highlight
 
+below is a git diff of the changes:
+
+```
+diff --git a/make-time/todo.html b/make-time/todo.html
+index 2aa9ee5..5c2a915 100644
+--- a/make-time/todo.html
++++ b/make-time/todo.html
+@@ -40,10 +40,10 @@
+   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+   <script>
+     var currentToDo = ""
+-    var toDos = [{name: 'chicken', level: 1, done: true}]
++    var toDos = [{name: 'chicken', level: 1, done: true, highlight: false}]
+     function addNewToDo(event){
+       var nextToDoLevel = toDos.length + 1
+-      toDos.push({name: currentToDo, level: nextToDoLevel, done: false})
++      toDos.push({name: currentToDo, level: nextToDoLevel, done: false, highlight: false})
+       drawToDos()
+       return false;
+     }
+@@ -57,6 +57,15 @@
+       toDo.done = !toDo.done
+     }
+
++    function makeHighlight(name) {
++      var toDo = toDos.find(t => t.name === name)
++      toDo.highlight = true
++      var otherToDos = toDos.filter(t => t.name !== name)
++      otherToDos.map(t => t.highlight = false)
++
++      drawToDos()
++    }
++
+     function makeHigherToDo(name) {
+       var toDo = toDos.find(p => p.name === name)
+       var currentLevel = toDo.level
+@@ -86,6 +95,7 @@
+         .map(x => {
+           var disabledHigher = x.level === 1 ? 'disabled': ''
+           var disabledLower = x.level === toDos.length ? 'disabled': ''
++          var disabledHighlight = x.highlight ? 'disabled': ''
+           var checked = x.done ? 'checked': ''
+           return `<li class="list-group-item">
+           <span class="badge badge-primary badge-pill"> ${x.level} </span>
+@@ -100,6 +110,7 @@
+             ${checked}>
+           </div>
+           <span class="float-buttons">
++            <button ${disabledHighlight} onclick="return makeHighlight('${x.name}')" type="button" class="btn btn-sm btn-outline-success">Make Highlight</button>
+             <button ${disabledHigher} onclick="return makeHigherToDo('${x.name}')"
+               type="button" class="btn btn-sm
+               btn-outline-primary">Make Higher To-Do Item
+
+```
 
 ## What happens when a browser loads a page
 
@@ -174,6 +228,10 @@ our hooking up of the state to the page:
 hooking actions to buttons:
 * we acheive that with the onclick html param on on our buttons
 
+## Homework
 
+### add a progress bar that shows the percent of todos checked off for the day
 
+### make it so the user can tag todo items with priorities
 
+### design (don't actually code anything) what the past days page should look like
