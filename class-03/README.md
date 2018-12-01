@@ -228,6 +228,15 @@ our hooking up of the state to the page:
 hooking actions to buttons:
 * we acheive that with the onclick html param on on our buttons
 
+## in class exercise
+
+### prevent to do items with the same name
+
+do not allow the user to make to do items with the same name. There are many
+  ways to tackle this one, for now, allow them to hit submit if they have a
+  duplicate name, but don't allow the item to be added to the list, and show an
+  [alert](https://getbootstrap.com/docs/4.0/components/alerts/) describing the problem
+
 ## Homework
 
 ### add a progress bar that shows the percent of todos checked off for the day
