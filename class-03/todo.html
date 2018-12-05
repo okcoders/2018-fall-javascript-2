@@ -106,7 +106,18 @@
           var disabledLower = x.level === toDos.length ? 'disabled': ''
           var checked = x.completed ? 'checked': ''
           var highlight = x.highlight ? 'highlight': ''
-          return `<li class="list-group-item ${highlight}">
+          return `
+          <div onchange="return selectPriorities" class="form-group">
+            <label for="exampleFormControlSelect1">Example select</label>
+            <select class="form-control" id="exampleFormControlSelect1">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+            </select>
+          </div>
+          <li class="list-group-item ${highlight}">
           <span class="badge badge-primary badge-pill"> ${x.level} </span>
           <span>${x.name}</span>
           <div class="form-check form-check-inline">

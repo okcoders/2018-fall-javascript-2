@@ -237,10 +237,113 @@ do not allow the user to make to do items with the same name. There are many
   duplicate name, but don't allow the item to be added to the list, and show an
   [alert](https://getbootstrap.com/docs/4.0/components/alerts/) describing the problem
 
+#### hints:
+
+Here is the [documentation](https://getbootstrap.com/docs/4.1/components/alerts/) for alerts
+
+And here is a [stackoverflow](https://stackoverflow.com/questions/507138/how-do-i-add-a-class-to-a-given-element) with some information
+on how to set the classes you want for a particular element in the dom/html.
+Remember this is just a string, and if you want more than one class, just
+separate them by spaces.
+
+Below you wil want to fill in the ??? with a function that finds out if you
+already have a todo of the same name in your array of toDos
+
+Then you need to use document.getElementById to find your alert in the html,
+then change the css classes to unhide the alert when you already have a todo by
+that name
+
+```
+function addNewToDo(event){
+  var alreadyHaveToDo = toDos.find(???)
+  if (alreadyHaveToDo) }
+    // find alert and remove class that hides it
+  } else {
+    var nextToDoLevel = toDos.length + 1
+    toDos.push({name: currentToDo, level: nextToDoLevel, completed: false, highlight: false})
+    drawToDos()
+  }
+  return false;
+}
+```
 ## Homework
 
 ### add a progress bar that shows the percent of todos checked off for the day
 
+Here are the docs for [progress](https://getbootstrap.com/docs/4.1/components/progress/) bars
+
+Before reading the below, try to do it on your own, the below are hints and more
+details.
+
+Let's put the progress bar below the submit button on the todo page, but above
+the list of todos.
+
+If you have no todos, or if you have not completed amy todos, then the progress
+should be 0%
+
+This means that the progress bar should be added inside the drawToDos function.
+We also should calculate the percent completed inside the drawToDos function and
+then use that calculated value to populate aria-valuenow parameter you can see
+below, but more importantly the style="width; x%"
+
+```
+<div class="progress">
+  <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+```
+
+To get the percent complete you need to calculate the numerator, which is the
+number of todo items marked as complete, and the denominator, which is just the
+length of the current toDos array. 
+
+divide the numerator and the denominator to get a decimal.
+
+You then need to multiple that decimal by 100 and create a string that has that
+number plus "width: x%" with x having your respective value
+
 ### make it so the user can tag todo items with priorities
 
+Again, many ways to do this, let's start with using a select dropdown. You can
+find the docs [here](https://getbootstrap.com/docs/4.1/components/forms/)
+
+Though you will need to scroll down a bit to get to this piece here:
+
+```
+<div class="form-group">
+  <label for="exampleFormControlSelect1">Example select</label>
+  <select class="form-control" id="exampleFormControlSelect1">
+    <option>1</option>
+    <option>2</option>
+    <option>3</option>
+    <option>4</option>
+    <option>5</option>
+  </select>
+</div>
+```
+
+Look at that for a second.
+
+First, notice that select is something provided by default, and we should look
+up the [docs](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select)
+
+also note from this
+[stackoverflow](https://stackoverflow.com/questions/647282/is-there-an-onselect-event-or-equivalent-for-html-select)
+that we can set values on the option html tags, and we can set a onchage
+callback on the whole select.
+
+The reason we want to set values is so that in our callback we can have them
+passed to us.
+
+For now, don't worry about trying to hook up the onchange to a callback. Just
+add the html to the page, and hardcode some priorities to choose from.
+
+I suggest adding the select inside the drawToDos function, perhaps between the
+checkbox and the make highlight button
+
 ### design (don't actually code anything) what the past days page should look like
+
+This is similar to what we did in class when we were thinking about what our
+model/state is for the go fund me gift page.
+
+You should also think about what the html will look like. What components should
+you use? Where should they be on the page?
