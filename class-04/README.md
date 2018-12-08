@@ -83,7 +83,6 @@ var options = priorityOptionsHtml(x.priority)
 
 ## Try to break functionality out into new functions
 
-
 Whenever you are fixing bugs or adding new features, you should be adding new
 functions. If you are just adding code to existing functions, that is a code
 smell. 
@@ -92,6 +91,23 @@ There are many reasons for this (code is easier to read, less scope bloat), but
 the one that is most convincing to me is what is called composability. The more
 functions you have, the more programs you can make by stringing existing
 functions together in new and unique ways.
+
+### what are some areas ripe for "breaking out"
+
+Ways to identify places that are good to break up:
+* breaks DRY
+* function is "long", i.e has a lot of lines
+* intent is not clear (for example inside the addNewPriority function)
+
+Areas we can improve:
+* make higher and lower to do level
+* drawToDos 
+  * because it is too long
+  * we repeat ourselves when "resolving to empty string"
+  * we repeat ourselves when adding html to an element
+
+
+## Walk through ideas for how the past toDos page should look
 
 ## Project
 
