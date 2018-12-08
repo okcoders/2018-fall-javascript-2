@@ -30,12 +30,8 @@
       <div class="form-group">
         <input type="text" class="form-control" onchange="return toDoChange(event)" id="inputToDo" placeholder="Enter a to-do item.... like do OkCoders homework">
       </div>
-      <div id="duplicate-name-alert" class="alert alert-warning alert-hidden" role="alert">
-        You already have a todo with that name!
-      </div>
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
-    <div id="progress"> </div>
     <ul id="toDo-list" class="list-group"> </ul>
   </div>
 
@@ -45,17 +41,7 @@
   <script>
     var currentToDo = ""
     var toDos = [{name: 'chicken', level: 1, done: true, highlight: false}]
-    var priorityOptions = ['', 'Family', 'OKCoders', 'Health']
     function addNewToDo(event){
-      var element = document.getElementById("duplicate-name-alert")
-      var classList = element.classList
-      classList.add("alert-hidden")
-      var duplicateToDo = toDos.find(todo => todo.name === currentToDo)
-      if (duplicateToDo) {
-        var element = document.getElementById("duplicate-name-alert")
-        var classList = element.classList
-        classList.remove("alert-hidden")
-      }
       var nextToDoLevel = toDos.length + 1
       toDos.push({name: currentToDo, level: nextToDoLevel, done: false, highlight: false})
       drawToDos()
@@ -66,31 +52,9 @@
       currentToDo = event.target.value
     }
 
-    function priorityOptionsHtml(chosen) {
-      chosen ? chosen: ""
-      return priorityOptions
-        .map(o => {
-          var selected = o === chosen ? 'selected': ''
-          return `<option value="${o}" ${selected}>
-             ${o}
-           </option>`
-        })
-        .join("")
-    }
-
-    function prioritySelected(e) {
-      console.log(e)
-      var name = e.target.id
-      var value = e.target.value
-      var toDo = toDos.find(t => t.name === name)
-      toDo.priority = value
-      return false
-    }
-
     function checkboxChange(event) {
       var toDo = toDos.find(t => t.name === event.target.value)
       toDo.done = !toDo.done
-      drawToDos()
     }
 
     function makeHighlight(name) {
@@ -134,7 +98,6 @@
           var highlightClass = x.highlight ? 'highlight': ''
           var disabledHighlight = x.highlight ? 'disabled': ''
           var checked = x.done ? 'checked': ''
-          var options = priorityOptionsHtml(x.priority)
           return `<li class="list-group-item ${highlightClass}">
           <span class="badge badge-primary badge-pill"> ${x.level} </span>
           <span>${x.name}</span>
@@ -147,12 +110,6 @@
             id="exampleCheck1" 
             ${checked}>
           </div>
-          <span class="form-group">
-          <label for="exampleFormControlSelect1">Priority Tag</label>
-          <select id="${x.name}" onchange="return prioritySelected(event)" class="form-control inline" id="exampleFormControlSelect1">
-            ${options}
-          </select>
-          </span>
           <span class="float-buttons">
             <button ${disabledHighlight} onclick="return makeHighlight('${x.name}')" type="button" class="btn btn-sm btn-outline-success">Make Highlight</button>
             <button ${disabledHigher} onclick="return makeHigherToDo('${x.name}')" 
@@ -168,13 +125,6 @@
         })
         .join("")
       list.innerHTML = currentToDos
-
-      var progressNumber = (toDos.filter(t => t.done).length / toDos.length) * 100
-      var progressBar = `<div class="progress">
-        <div class="progress-bar" role="progressbar" style="width: ${progressNumber}%" aria-valuenow="${progressNumber}" aria-valuemin="0" aria-valuemax="100"></div>
-      </div>`
-      var progress = document.getElementById("progress")
-      progress.innerHTML = progressBar
     }
 
     drawToDos()
