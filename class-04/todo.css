@@ -1,4 +1,8 @@
 
+.select-inline {
+  display: inline;
+  width: 25%;
+}
 
 .alert-hidden {
   display: none;

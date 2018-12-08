@@ -30,8 +30,12 @@
       <div class="form-group">
         <input type="text" class="form-control" onchange="return toDoChange(event)" id="inputToDo" placeholder="Enter a to-do item.... like do OkCoders homework">
       </div>
+      <div id="duplicate-alert" class="alert alert-warning alert-hidden" role="alert">
+        You already have a todo with that name!
+      </div>
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
+    <div id="progress"> </div>
     <ul id="toDo-list" class="list-group"> </ul>
   </div>
 
@@ -40,12 +44,31 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
   <script>
     var currentToDo = ""
-    var toDos = [{name: 'chicken', level: 1, done: true, highlight: false}]
+    var toDos = [{name: 'chicken', level: 1, done: true, highlight: false, priorityTag: ""}]
+    var priorityTagOptions = ["", "Meh", "OKCoders", "Work"]
     function addNewToDo(event){
-      var nextToDoLevel = toDos.length + 1
-      toDos.push({name: currentToDo, level: nextToDoLevel, done: false, highlight: false})
-      drawToDos()
+      var duplicateName = toDos.some(t => t.name === currentToDo)
+      var element = document.getElementById("duplicate-alert")
+      var classList = element.classList
+      if (duplicateName) {
+        classList.remove("alert-hidden")
+      } else {
+        classList.add("alert-hidden")
+        var nextToDoLevel = toDos.length + 1
+        toDos.push({ name: currentToDo, level: nextToDoLevel, done: false, highlight: false, priorityTag: "" })
+        render()
+      }
       return false;
+    }
+
+    function priorityOptionsHtml(currentTag) {
+      console.log(currentTag)
+      return priorityTagOptions
+      .map(tagOption => {
+        var selected = tagOption === currentTag ? 'selected': ''
+        return `<option ${selected}>${tagOption}</option>`
+      })
+      .join("")
     }
 
     function toDoChange(event){
@@ -55,6 +78,15 @@
     function checkboxChange(event) {
       var toDo = toDos.find(t => t.name === event.target.value)
       toDo.done = !toDo.done
+      render()
+    }
+
+    function priorityTagChange(event) {
+      var name = event.target.id
+      var priorityTag = event.target.value
+      var toDo = toDos.find(toDo =>toDo.name === name)
+      toDo.priorityTag = priorityTag
+
     }
 
     function makeHighlight(name) {
@@ -63,7 +95,7 @@
       var otherToDos = toDos.filter(t => t.name !== name)
       otherToDos.map(t => t.highlight = false)
 
-      drawToDos()
+      render()
     }
 
     function makeHigherToDo(name) {
@@ -75,7 +107,7 @@
         toDo.level = toDo.level - 1
       }
 
-      drawToDos()
+      render()
     }
 
     function makeLowerToDo(name) {
@@ -85,11 +117,15 @@
       siblingToDo.level = currentLevel
       toDo.level = toDo.level + 1
 
-      drawToDos()
+      render()
     }
 
-    function drawToDos() {
-      var list = document.getElementById("toDo-list")
+    function render() {
+      renderToDos()
+      renderProgressBar()
+    }
+
+    function renderToDos() {
       var currentToDos = toDos
         .sort((x,y) => x.level - y.level)
         .map(x => {
@@ -110,6 +146,12 @@
             id="exampleCheck1" 
             ${checked}>
           </div>
+          <span class="form-group">
+            <label for="exampleFormControlSelect1">Example select</label>
+            <select onchange="return priorityTagChange(event)" class="form-control select-inline" id="${x.name}">
+              ${priorityOptionsHtml(x.priorityTag)}
+            </select>
+          </span>
           <span class="float-buttons">
             <button ${disabledHighlight} onclick="return makeHighlight('${x.name}')" type="button" class="btn btn-sm btn-outline-success">Make Highlight</button>
             <button ${disabledHigher} onclick="return makeHigherToDo('${x.name}')" 
@@ -124,10 +166,26 @@
           </li>`
         })
         .join("")
-      list.innerHTML = currentToDos
+
+      addHtmlById("toDo-list", currentToDos)
     }
 
-    drawToDos()
+    function renderProgressBar() {
+      var progressPercent = (toDos.filter(t => t.done).length / toDos.length) * 100
+      var progressBar = `
+      <div class="progress">
+        <div class="progress-bar" role="progressbar" style="width: ${progressPercent}%" aria-valuenow="${progressPercent}" aria-valuemin="0" aria-valuemax="100"></div>
+      </div>
+      `
+      addHtmlById("progress", progressBar)
+    }
+
+    function addHtmlById(id, html) {
+      var element = document.getElementById(id)
+      element.innerHTML = html
+    }
+
+    render()
 
 
   </script>

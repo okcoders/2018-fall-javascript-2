@@ -41,14 +41,20 @@
   <script>
     var currentPriority = ""
     var priorities = [{'name': 'chicken', level: 1}]
+
     function addNewPriority(event){
       var nextPriorityLevel = priorities.length + 1
       priorities.push({name: currentPriority, level: nextPriorityLevel})
+
+      cleanUpInputForm()
+      drawPriorities()
+      return false;
+    }
+
+    function cleanUpInputForm() {
       var input = document.getElementById('exampleInputPriority1')
       input.value = ""
       currentPriority = ""
-      drawPriorities()
-      return false;
     }
 
     function priorityChange(event){
@@ -56,24 +62,20 @@
     }
 
     function makeHigherPriority(name) {
-      var priority = priorities.find(p => p.name === name)
-      var currentLevel = priority.level
-      var siblingPriority = priorities.find(p => p.level === currentLevel - 1)
-      siblingPriority.level = currentLevel
-      if (priority.level > 1) {
-        priority.level = priority.level - 1
-      }
-
+      changePriorityLevel(name, function(a) { return a - 1 })
       drawPriorities()
     }
 
-    function makeLowerPriority(name) {
+    function changePriorityLevel(name, func) {
       var priority = priorities.find(p => p.name === name)
       var currentLevel = priority.level
-      var siblingPriority = priorities.find(p => p.level === currentLevel + 1)
+      var siblingPriority = priorities.find(p => p.level === func(currentLevel))
       siblingPriority.level = currentLevel
-      priority.level = priority.level + 1
+      priority.level = func(priority.level)
+    }
 
+    function makeLowerPriority(name) {
+      changePriorityLevel(name, function(a) { return a + 1 })
       drawPriorities()
     }
 
